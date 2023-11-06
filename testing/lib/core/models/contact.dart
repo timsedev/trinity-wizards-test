@@ -1,11 +1,11 @@
-class Model {
-  final String id;
-  final String firstName;
-  final String lastName;
-  final String email;
-  final String dob;
+class Contact {
+  final String? id;
+  final String? firstName;
+  final String? lastName;
+  final String? email;
+  final String? dob;
 
-  Model({
+  Contact({
     required this.id,
     required this.firstName,
     required this.lastName,
@@ -13,13 +13,13 @@ class Model {
     required this.dob,
   });
 
-  factory Model.fromJson(Map<String, dynamic> json) {
-    return Model(
-      id: json['id'],
-      firstName: json['firstName'],
-      lastName: json['lastName'],
-      email: json['email'],
-      dob: json['dob'],
+  factory Contact.fromJson(Map<String, dynamic> json) {
+    return Contact(
+      id: json['id'] as String?,
+      firstName: json['firstName'] as String?,
+      lastName: json['lastName'] as String?,
+      email: json['email'] as String?,
+      dob: json['dob'] as String?,
     );
   }
 }
