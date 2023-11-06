@@ -53,25 +53,29 @@ class _Screen1ViewState extends State<Screen1View> {
                 ),
                 itemCount: _viewModel.contacts.length,
                 itemBuilder: (BuildContext context, int index) {
-                  return Container(
-                    margin: const EdgeInsets.all(8),
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        color: Colors.grey.shade300,
-                        width: 1,
-                      ),
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const CircleAvatar(
-                          backgroundColor: Colors.orange,
-                          radius: 30,
+                  return GestureDetector(
+                    onTap: () async =>
+                        await _viewModel.navToScreen2(context, index),
+                    child: Container(
+                      margin: const EdgeInsets.all(8),
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: Colors.grey.shade300,
+                          width: 1,
                         ),
-                        const SizedBox(height: 8),
-                        Text(
-                            '${_viewModel.contacts[index].firstName} ${_viewModel.contacts[index].lastName}'),
-                      ],
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const CircleAvatar(
+                            backgroundColor: Colors.orange,
+                            radius: 30,
+                          ),
+                          const SizedBox(height: 8),
+                          Text(
+                              '${_viewModel.contacts[index].firstName} ${_viewModel.contacts[index].lastName}'),
+                        ],
+                      ),
                     ),
                   );
                 },
