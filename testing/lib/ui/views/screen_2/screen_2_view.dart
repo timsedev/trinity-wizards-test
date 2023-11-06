@@ -45,87 +45,90 @@ class _Screen2ViewState extends State<Screen2View> {
       ),
       body: Form(
         key: _viewModel.formKey,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            const SizedBox(height: 16),
-            CircleAvatar(
-              backgroundColor: Colors.orange,
-              radius: 50,
-            ),
-            const SizedBox(height: 16),
-            const Text('Main Information', style: TextStyle(fontSize: 20)),
-            const SizedBox(height: 8),
-            TextFormField(
-              controller: _viewModel.firstNameController,
-              decoration: const InputDecoration(
-                labelText: 'First Name',
-                border: OutlineInputBorder(),
+        child: Padding(
+          padding: const EdgeInsets.all(15),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              const SizedBox(height: 16),
+              CircleAvatar(
+                backgroundColor: Colors.orange,
+                radius: 50,
               ),
-              validator: (value) {
-                if (value!.isEmpty) {
-                  return 'Please enter your first name';
-                }
-                return null;
-              },
-            ),
-            const SizedBox(height: 8),
-            TextFormField(
-              controller: _viewModel.lastNameController,
-              decoration: const InputDecoration(
-                labelText: 'Last Name',
-                border: OutlineInputBorder(),
+              const SizedBox(height: 16),
+              const Text('Main Information', style: TextStyle(fontSize: 20)),
+              const SizedBox(height: 8),
+              TextFormField(
+                controller: _viewModel.firstNameController,
+                decoration: const InputDecoration(
+                  labelText: 'First Name',
+                  border: OutlineInputBorder(),
+                ),
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return 'Please enter your first name';
+                  }
+                  return null;
+                },
               ),
-              validator: (value) {
-                if (value!.isEmpty) {
-                  return 'Please enter your last name';
-                }
-                return null;
-              },
-            ),
-            const SizedBox(height: 16),
-            const Text('Sub Information', style: TextStyle(fontSize: 20)),
-            const SizedBox(height: 8),
-            TextFormField(
-              controller: _viewModel.emailController,
-              decoration: const InputDecoration(
-                labelText: 'Email',
-                border: OutlineInputBorder(),
+              const SizedBox(height: 8),
+              TextFormField(
+                controller: _viewModel.lastNameController,
+                decoration: const InputDecoration(
+                  labelText: 'Last Name',
+                  border: OutlineInputBorder(),
+                ),
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return 'Please enter your last name';
+                  }
+                  return null;
+                },
               ),
-              validator: (value) {
-                if (value!.isEmpty) {
-                  return 'Please enter your email';
-                }
-                return null;
-              },
-            ),
-            const SizedBox(height: 8),
-            TextFormField(
-              controller: TextEditingController(
-                text: _viewModel.dob == null
-                    ? ''
-                    : '${_viewModel.dob!.month}/${_viewModel.dob!.day}/${_viewModel.dob!.year}',
+              const SizedBox(height: 16),
+              const Text('Sub Information', style: TextStyle(fontSize: 20)),
+              const SizedBox(height: 8),
+              TextFormField(
+                controller: _viewModel.emailController,
+                decoration: const InputDecoration(
+                  labelText: 'Email',
+                  border: OutlineInputBorder(),
+                ),
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return 'Please enter your email';
+                  }
+                  return null;
+                },
               ),
-              decoration: const InputDecoration(
-                labelText: 'Date of Birth',
-                border: OutlineInputBorder(),
+              const SizedBox(height: 8),
+              TextFormField(
+                controller: TextEditingController(
+                  text: _viewModel.dob == null
+                      ? ''
+                      : '${_viewModel.dob!.month}/${_viewModel.dob!.day}/${_viewModel.dob!.year}',
+                ),
+                decoration: const InputDecoration(
+                  labelText: 'Date of Birth',
+                  border: OutlineInputBorder(),
+                ),
+                readOnly: true,
+                onTap: () async {
+                  final pickedDate = await showDatePicker(
+                    context: context,
+                    initialDate: _viewModel.dob!,
+                    firstDate: DateTime(1900),
+                    lastDate: DateTime.now(),
+                  );
+                  if (pickedDate != null) {
+                    setState(() {
+                      _viewModel.dob = pickedDate;
+                    });
+                  }
+                },
               ),
-              readOnly: true,
-              onTap: () async {
-                final pickedDate = await showDatePicker(
-                  context: context,
-                  initialDate: _viewModel.dob!,
-                  firstDate: DateTime(1900),
-                  lastDate: DateTime.now(),
-                );
-                if (pickedDate != null) {
-                  setState(() {
-                    _viewModel.dob = pickedDate;
-                  });
-                }
-              },
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
