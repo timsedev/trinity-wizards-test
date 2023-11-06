@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:testing/core/models/contact.dart';
 import 'package:testing/ui/views/screen_1/screen_1_viewmodel.dart';
 
 class Screen1View extends StatefulWidget {
@@ -11,9 +12,11 @@ class Screen1View extends StatefulWidget {
 class _Screen1ViewState extends State<Screen1View> {
   final _viewModel = Screen1ViewModel();
 
+  Future? contactFuture;
+
   @override
   void initState() {
-    _viewModel.fetchContacts();
+    contactFuture = _viewModel.fetchContacts();
     super.initState();
   }
 
@@ -22,18 +25,61 @@ class _Screen1ViewState extends State<Screen1View> {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          icon: Icon(Icons.search),
+          icon: const Icon(Icons.search),
           onPressed: () {},
         ),
-        title: Text('Contacts'),
+        title: const Text('Contacts'),
         actions: [
           IconButton(
-            icon: Icon(Icons.add),
+            icon: const Icon(Icons.add),
             onPressed: () {},
           ),
         ],
       ),
-      body: Container(),
+      body: FutureBuilder(
+        future: contactFuture,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(child: CircularProgressIndicator());
+          } else if (snapshot.hasError) {
+            return Center(child: Text('Error: ${snapshot.error}'));
+          } else {
+            return SingleChildScrollView(
+              child: GridView.builder(
+                physics: const ScrollPhysics(),
+                shrinkWrap: true,
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                ),
+                itemCount: _viewModel.contacts.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return Container(
+                    margin: const EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        color: Colors.grey.shade300,
+                        width: 1,
+                      ),
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const CircleAvatar(
+                          backgroundColor: Colors.orange,
+                          radius: 30,
+                        ),
+                        const SizedBox(height: 8),
+                        Text(
+                            '${_viewModel.contacts[index].firstName} ${_viewModel.contacts[index].lastName}'),
+                      ],
+                    ),
+                  );
+                },
+              ),
+            );
+          }
+        },
+      ),
     );
   }
 }
