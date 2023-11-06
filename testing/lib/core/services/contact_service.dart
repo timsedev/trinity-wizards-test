@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:developer';
+import 'dart:io';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:testing/core/models/contact.dart';
 
@@ -27,5 +28,24 @@ class ContactService {
     contacts = data.map((contactMap) => Contact.fromJson(contactMap)).toList();
 
     return contacts;
+  }
+
+  void saveContact(Contact contact) {
+    final file = File('assets/data.json');
+    final contacts = <Contact>[];
+
+    if (file.existsSync()) {
+      final contents = file.readAsStringSync();
+      final json = jsonDecode(contents);
+
+      for (final item in json) {
+        contacts.add(Contact.fromJson(item));
+      }
+    }
+
+    contacts.add(contact);
+
+    final json = jsonEncode(contacts.map((c) => c.toJson()).toList());
+    file.writeAsStringSync(json);
   }
 }
