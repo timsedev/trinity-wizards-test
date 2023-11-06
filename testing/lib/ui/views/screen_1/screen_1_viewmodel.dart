@@ -1,21 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:testing/core/models/contact.dart';
 import 'package:testing/core/services/contact_service.dart';
-import 'package:flutter/widgets.dart';
 import 'package:testing/ui/views/screen_2/screen_2_view.dart';
 
 class Screen1ViewModel {
   final _contactService = ContactService();
-  bool isBusy = false;
 
-  var contacts = <Contact>[];
+  List<Contact> get contacts => _contactService.contacts;
 
-  Future<void> onRefresh() async {}
+  Future<void> onRefresh() async {
+    await fetchContacts();
+  }
 
   Future<void> fetchContacts() async {
-    isBusy = true;
-    contacts = await _contactService.fetchContacts();
-    isBusy = false;
+    await _contactService.fetchContacts();
   }
 
   Future<void> navToScreen2(BuildContext context, int index) async {

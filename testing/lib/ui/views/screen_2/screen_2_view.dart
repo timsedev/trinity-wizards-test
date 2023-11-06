@@ -32,10 +32,10 @@ class _Screen2ViewState extends State<Screen2View> {
         title: const Text('Edit Contact'),
         actions: [
           TextButton(
-            onPressed: () {
+            onPressed: () async {
               if (_viewModel.formKey.currentState!.validate()) {
                 // Save contact
-                _viewModel.saveContact();
+                await _viewModel.saveContact();
                 Navigator.pop(context);
               }
             },

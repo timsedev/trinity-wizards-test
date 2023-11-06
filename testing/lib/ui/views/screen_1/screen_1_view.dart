@@ -54,8 +54,10 @@ class _Screen1ViewState extends State<Screen1View> {
                 itemCount: _viewModel.contacts.length,
                 itemBuilder: (BuildContext context, int index) {
                   return GestureDetector(
-                    onTap: () async =>
-                        await _viewModel.navToScreen2(context, index),
+                    onTap: () async {
+                      await _viewModel.navToScreen2(context, index);
+                      setState(() {});
+                    },
                     child: Container(
                       margin: const EdgeInsets.all(8),
                       decoration: BoxDecoration(

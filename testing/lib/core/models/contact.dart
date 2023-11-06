@@ -1,16 +1,16 @@
 class Contact {
-  final String? id;
-  final String? firstName;
-  final String? lastName;
-  final String? email;
-  final String? dob;
+  String? id;
+  String? firstName;
+  String? lastName;
+  String? email;
+  String? dob;
 
   Contact({
-    required this.id,
-    required this.firstName,
-    required this.lastName,
-    required this.email,
-    required this.dob,
+    this.id,
+    this.firstName,
+    this.lastName,
+    this.email,
+    this.dob,
   });
 
   factory Contact.fromJson(Map<String, dynamic> json) {
@@ -31,5 +31,11 @@ class Contact {
       'email': email,
       'dob': dob,
     };
+  }
+
+  // for testing purposes
+  @override
+  String toString() {
+    return 'Contact{id: $id, firstName: $firstName, lastName: $lastName, email: $email, dob: $dob}';
   }
 }
