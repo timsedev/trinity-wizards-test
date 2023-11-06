@@ -101,6 +101,11 @@ class _Screen2ViewState extends State<Screen2View> {
             ),
             const SizedBox(height: 8),
             TextFormField(
+              controller: TextEditingController(
+                text: _viewModel.dob == null
+                    ? ''
+                    : '${_viewModel.dob!.month}/${_viewModel.dob!.day}/${_viewModel.dob!.year}',
+              ),
               decoration: const InputDecoration(
                 labelText: 'Date of Birth',
                 border: OutlineInputBorder(),
