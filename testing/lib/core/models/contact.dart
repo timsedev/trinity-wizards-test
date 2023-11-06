@@ -22,4 +22,14 @@ class Contact {
       dob: json['dob'] as String?,
     );
   }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'firstName': firstName,
+      'lastName': lastName,
+      'email': email,
+      'dob': dob,
+    };
+  }
 }
